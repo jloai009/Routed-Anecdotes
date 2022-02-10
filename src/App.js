@@ -74,10 +74,9 @@ const Footer = () => (
 )
 
 const CreateNew = (props) => {
-  const content = useField('content')
-  const author = useField('author')
-  const info = useField('info')
-
+  const { attributes: content, reset: resetContent } = useField('content')
+  const { attributes: author, reset: resetAuthor } = useField('author')
+  const { attributes: info, reset: resetInfo } = useField('info')
   const history = useHistory()
 
   const handleSubmit = (e) => {
@@ -89,6 +88,12 @@ const CreateNew = (props) => {
       votes: 0
     })
     history.push('/anecdotes')
+  }
+
+  const resetForm = () => {
+    resetContent()
+    resetAuthor()
+    resetInfo()
   }
 
   return (
@@ -107,7 +112,8 @@ const CreateNew = (props) => {
           url for more info
           <input {...info} />
         </div>
-        <button>create</button>
+        <button type="submit" value="Create">create</button>
+        <button type="reset" value="Reset" onClick={()=>resetForm()}>Reset</button>
       </form>
     </div>
   )
